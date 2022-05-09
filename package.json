@@ -1,0 +1,31 @@
+{
+  "name": "cripto-3mit-backend",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "author": "EliezerSPP <EliezerSPP@outlook.com>",
+  "scripts": {
+    "start": "ts-node -r dotenv/config -r tsconfig-paths/register ./index.ts",
+    "dev": "ts-node-dev -r dotenv/config -r tsconfig-paths/register ./index.ts",
+    "lint": "ts-standardx",
+    "lint:fix": "ts-standardx --fix"
+  },
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.1",
+    "mongoose": "^6.3.3",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^17.0.31",
+    "ts-node-dev": "^1.1.8",
+    "ts-standardx": "^0.8.4",
+    "tsconfig-paths": "^4.0.0"
+  }
+}
