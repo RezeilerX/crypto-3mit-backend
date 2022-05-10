@@ -2,6 +2,7 @@ import type { RequestHandler } from 'express'
 import { matchedData } from 'express-validator'
 import { omit } from 'lodash'
 import usersModel from 'models/users'
+import portfoliosModel from 'models/portfolios'
 
 import { encryptPassword, comparePassword } from 'utils/password'
 import { signToken } from 'utils/jwt'
@@ -15,6 +16,7 @@ const registerController: RequestHandler = async (req, res) => {
       password: await encryptPassword(rawData.password)
     }
 
+    // User creation
     const createdUser = await usersModel.create(data)
     const { _id, email } = createdUser
     const result = {
@@ -22,9 +24,12 @@ const registerController: RequestHandler = async (req, res) => {
       token: signToken({ _id, email })
     }
 
+    // Portfolio creation
+    await portfoliosModel.create({ userId: _id })
+
     res.status(201)
     res.send({ data: result })
-  } catch (error: any) {
+  } catch (error) {
     if (error?.name === 'MongoServerError' && error?.code === 11000) {
       httpErrorHandler(res, {
         message: 'ERROR_USER_DUPLICATED',
