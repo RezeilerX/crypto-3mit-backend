@@ -1,11 +1,11 @@
 import type { RequestHandler } from 'express'
-import usersModel from 'models/users'
 import { matchedData } from 'express-validator'
 import { omit } from 'lodash'
+import usersModel from 'models/users'
 
-import { httpErrorHandler } from 'utils/http'
 import { encryptPassword, comparePassword } from 'utils/password'
 import { signToken } from 'utils/jwt'
+import { httpErrorHandler } from 'utils/http'
 
 const registerController: RequestHandler = async (req, res) => {
   try {
@@ -18,7 +18,7 @@ const registerController: RequestHandler = async (req, res) => {
     const createdUser = await usersModel.create(data)
     const { _id, email } = createdUser
     const result = {
-      user: omit(createdUser.toJSON(), 'password'),
+      user: omit(createdUser.toJSON(), ['password', 'createdAt', 'updatedAt']),
       token: signToken({ _id, email })
     }
 
@@ -28,7 +28,7 @@ const registerController: RequestHandler = async (req, res) => {
     if (error?.name === 'MongoServerError' && error?.code === 11000) {
       httpErrorHandler(res, {
         message: 'ERROR_USER_DUPLICATED',
-        code: 403
+        code: 409
       })
     } else {
       httpErrorHandler(res, {
@@ -67,7 +67,11 @@ const loginController: RequestHandler = async (req, res) => {
     }
 
     res.send({ data: result })
-  } catch {}
+  } catch {
+    httpErrorHandler(res, {
+      message: 'ERROR_USER_LOGIN'
+    })
+  }
 }
 
 export { registerController, loginController }
