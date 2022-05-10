@@ -1,7 +1,7 @@
 import colors from 'colors'
 
-export const log = (message: string): void => {
-  console.log(message)
+export const log = (message?: unknown, ...rest: unknown[]): void => {
+  console.log(message, ...rest)
 }
 
 export const info = (message: string): void => {
