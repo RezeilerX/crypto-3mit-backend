@@ -1,4 +1,6 @@
 import type { RequestHandler } from 'express'
+import type { UserToken } from 'types'
+
 import { matchedData } from 'express-validator'
 import { omit } from 'lodash'
 import usersModel from 'models/users'
@@ -19,9 +21,10 @@ const registerController: RequestHandler = async (req, res) => {
     // User creation
     const createdUser = await usersModel.create(data)
     const { _id, email } = createdUser
+    const userToken: UserToken = { _id, email }
     const result = {
       user: omit(createdUser.toJSON(), ['password', 'createdAt', 'updatedAt']),
-      token: signToken({ _id, email })
+      token: signToken(userToken)
     }
 
     // Portfolio creation
@@ -66,9 +69,10 @@ const loginController: RequestHandler = async (req, res) => {
     }
 
     const { _id, email } = user
+    const userToken: UserToken = { _id, email }
     const result = {
       user: omit(user.toJSON(), ['password', 'createdAt', 'updatedAt']),
-      token: signToken({ _id, email })
+      token: signToken(userToken)
     }
 
     res.send({ data: result })

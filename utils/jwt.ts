@@ -1,9 +1,7 @@
 import { JWT_SECRET } from 'config/constants'
-import jwt from 'jsonwebtoken'
+import jwt, { JwtPayload } from 'jsonwebtoken'
 
-export const signToken = (
-  payload: string | Record<string, unknown> | Buffer
-): string => {
+export const signToken = (payload: JwtPayload): string => {
   const sign = jwt.sign(payload, JWT_SECRET, {
     expiresIn: '3h'
   })
