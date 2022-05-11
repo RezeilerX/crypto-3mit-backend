@@ -29,7 +29,7 @@ const registerController: RequestHandler = async (req, res) => {
 
     res.status(201)
     res.send({ data: result })
-  } catch (error) {
+  } catch (error: any) {
     if (error?.name === 'MongoServerError' && error?.code === 11000) {
       httpErrorHandler(res, {
         message: 'ERROR_USER_DUPLICATED',
