@@ -1,12 +1,11 @@
 import type { RequestHandler } from 'express'
-import { matchedData } from 'express-validator'
 import portfoliosModel from 'models/portfolios'
 
 import { httpErrorHandler } from 'utils/http'
 
 const getPortfolioController: RequestHandler = async (req, res) => {
   try {
-    const { userId } = matchedData(req)
+    const userId = req.body.user._id
     const portfolio = await portfoliosModel.findOne({ userId })
 
     if (!portfolio) {
