@@ -12,9 +12,5 @@ export const signToken = (
 }
 
 export const verifyToken = (token: string): unknown => {
-  try {
-    return jwt.verify(token, JWT_SECRET)
-  } catch {
-    return null
-  }
+  return jwt.verify(token, JWT_SECRET)
 }
