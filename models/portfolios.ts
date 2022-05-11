@@ -10,6 +10,9 @@ const PortfolioScheme = new Schema(
     ],
     userId: {
       type: Types.ObjectId
+    },
+    totalValue: {
+      type: Number
     }
   },
   {
