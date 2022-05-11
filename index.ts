@@ -12,7 +12,7 @@ const run = async (): Promise<void> => {
 
   app.use(cors())
   app.use(express.json())
-  app.use('/', router)
+  app.use('/api/v1', router)
 
   app.listen(PORT, () => {
     success(`Server online at port: ${PORT}`)
