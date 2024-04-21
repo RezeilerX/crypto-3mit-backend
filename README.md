@@ -1,5 +1,5 @@
 # Crypto 3MIT Backend
-Este proyecto tiene la finalidad de ofrecerle al frontend autenticacion (con JWT) y persistensia en los datos (con MongoDB)
+Este proyecto tiene la finalidad de ofrecerle al frontend autenticacion (con JWT) y persistencia en los datos (con MongoDB)
 
 ## ¿Como ejecuto el proyecto?
 Solo hace falta crear el archivo `.env` con las variables de entorno necesarias (puedes observar el archivo `.env.example` para saberlo) y ejecutar los siguientes comandos:
